@@ -109,7 +109,6 @@ class Person(Scraper):
     def get_experiences(self):
         url = os.path.join(self.linkedin_url, "details/experience")
         self.driver.get(url)
-        self.focus()
         main = self.wait_for_element_to_load(by=By.TAG_NAME, name="main")
         self.scroll_to_half()
         self.scroll_to_bottom()
@@ -196,12 +195,12 @@ class Person(Scraper):
     def get_educations(self):
         url = os.path.join(self.linkedin_url, "details/education")
         self.driver.get(url)
-        self.focus()
         main = self.wait_for_element_to_load(by=By.TAG_NAME, name="main")
         self.scroll_to_half()
         self.scroll_to_bottom()
         main_list = self.wait_for_element_to_load(name="pvs-list", base=main)
-        for position in main_list.find_elements(By.CLASS_NAME,"pvs-entity"):
+        for position in main_list.find_elements(By.XPATH,"li"):
+            position = position.find_element(By.CLASS_NAME,"pvs-entity--padded")
             institution_logo_elem, position_details = position.find_elements(By.XPATH,"*")
 
             # company elem
@@ -264,7 +263,6 @@ class Person(Scraper):
                 )
             )
         )
-        self.focus()
         self.wait(5)
 
         # get name and location
