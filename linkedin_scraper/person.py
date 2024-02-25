@@ -166,6 +166,11 @@ class Person(Scraper):
                     from_date = " ".join(times.split(" ")[:2]) if times else ""
                     to_date = " ".join(times.split(" ")[3:]) if times else ""
 
+                    try:
+                        description = description.text
+                    except:
+                        pass
+
                     experience = Experience(
                         position_title=position_title,
                         from_date=from_date,
