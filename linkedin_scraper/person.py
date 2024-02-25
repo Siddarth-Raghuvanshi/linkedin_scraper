@@ -185,6 +185,11 @@ class Person(Scraper):
             else:
                 description = position_summary_text.text if position_summary_text else ""
 
+                try:
+                    description = description.text
+                except:
+                    pass
+
                 experience = Experience(
                     position_title=position_title,
                     from_date=from_date,
